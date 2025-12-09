@@ -1,0 +1,565 @@
+<!DOCTYPE html>
+<html lang="gu">
+<head>
+  <meta charset="UTF-8">
+  <title>Zalavad Patidar Business Directory – Morbi</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: #f3f4f6;
+      color: #111827;
+    }
+
+    header {
+      background: #ffffff;
+      border-bottom: 1px solid #e5e7eb;
+      padding: 18px 16px;
+    }
+
+    .header-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    header h1 {
+      margin: 0;
+      font-size: 22px;
+      font-weight: 700;
+      letter-spacing: 0.5px;
+      color: #111827;
+    }
+
+    header p {
+      margin: 0;
+      font-size: 13px;
+      color: #6b7280;
+    }
+
+    .page {
+      max-width: 1100px;
+      margin: 16px auto 24px;
+      padding: 0 12px;
+    }
+
+    .filters {
+      background: #ffffff;
+      border-radius: 12px;
+      border: 1px solid #e5e7eb;
+      padding: 12px 12px 10px;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+      gap: 10px;
+    }
+
+    .filter-group {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      font-size: 12px;
+      color: #6b7280;
+    }
+
+    .filters label {
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+    }
+
+    .filters input,
+    .filters select {
+      background: #f9fafb;
+      border-radius: 8px;
+      border: 1px solid #d1d5db;
+      padding: 7px 9px;
+      font-size: 13px;
+      color: #111827;
+    }
+
+    .filters input::placeholder {
+      color: #9ca3af;
+    }
+
+    .filters input:focus,
+    .filters select:focus {
+      outline: none;
+      border-color: #111827;
+      box-shadow: 0 0 0 1px rgba(17,24,39,0.08);
+    }
+
+    .filters-reset {
+      text-align: right;
+      margin-top: 6px;
+      font-size: 12px;
+    }
+
+    .filters-reset button {
+      border: none;
+      background: transparent;
+      color: #4b5563;
+      cursor: pointer;
+      padding: 0;
+      text-decoration: underline;
+      text-underline-offset: 2px;
+    }
+
+    .stats {
+      margin-top: 8px;
+      font-size: 12px;
+      color: #4b5563;
+      display: flex;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 4px;
+    }
+
+    .stats strong {
+      color: #111827;
+    }
+
+    .cards {
+      margin-top: 12px;
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+      gap: 14px;
+    }
+
+    .card {
+      background: #ffffff;
+      border-radius: 12px;
+      border: 1px solid #e5e7eb;
+      padding: 12px;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      transition: box-shadow 0.15s ease, transform 0.15s ease;
+    }
+
+    .card:hover {
+      box-shadow: 0 10px 24px rgba(15,23,42,0.08);
+      transform: translateY(-1px);
+    }
+
+    .card-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 8px;
+    }
+
+    .card-name {
+      font-size: 15px;
+      font-weight: 700;
+      color: #111827;
+    }
+
+    .card-business {
+      font-size: 13px;
+      font-weight: 600;
+      color: #111827;
+      margin-top: 2px;
+    }
+
+    .card-type {
+      font-size: 12px;
+      color: #6b7280;
+    }
+
+    .chips {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      align-items: flex-end;
+    }
+
+    .chip {
+      font-size: 11px;
+      padding: 2px 8px;
+      border-radius: 999px;
+      border: 1px solid #e5e7eb;
+      background: #f9fafb;
+      color: #374151;
+      white-space: nowrap;
+    }
+
+    .chip.blood {
+      border-color: #fecaca;
+      background: #fef2f2;
+      color: #b91c1c;
+      font-weight: 600;
+    }
+
+    .chip.location {
+      border-color: #dbeafe;
+      background: #eff6ff;
+      color: #1d4ed8;
+    }
+
+    .chip.taluka {
+      border-color: #e5e7eb;
+      background: #f3f4f6;
+    }
+
+    .row {
+      font-size: 12px;
+      color: #4b5563;
+    }
+
+    .row-label {
+      font-weight: 600;
+      color: #374151;
+    }
+
+    .row-value {
+      margin-left: 2px;
+    }
+
+    .phone-row {
+      margin-top: 4px;
+      font-size: 13px;
+      font-weight: 600;
+      color: #111827;
+    }
+
+    .actions {
+      margin-top: 6px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+
+    .btn {
+      font-size: 11px;
+      padding: 4px 10px;
+      border-radius: 999px;
+      text-decoration: none;
+      border: 1px solid #d1d5db;
+      background: #ffffff;
+      color: #374151;
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .btn:hover {
+      border-color: #111827;
+    }
+
+    .btn-whatsapp {
+      border-color: #16a34a;
+      background: #16a34a;
+      color: #ffffff;
+    }
+
+    .no-results {
+      margin-top: 12px;
+      font-size: 13px;
+      color: #6b7280;
+    }
+
+    @media (max-width: 640px) {
+      header h1 {
+        font-size: 18px;
+      }
+      .card-top {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+      .chips {
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: flex-start;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+<header>
+  <div class="header-inner">
+    <h1>Zalavad Patidar Business Directory – Morbi</h1>
+    <p>Simple, minimal અને clean directory – name, business, village, taluka, blood group થી search & filter.</p>
+  </div>
+</header>
+
+<main class="page">
+
+  <section class="filters">
+    <div class="filter-group">
+      <label for="search">Search</label>
+      <input id="search" type="text" placeholder="Name / Business / Village">
+    </div>
+
+    <div class="filter-group">
+      <label for="village">Village</label>
+      <select id="village">
+        <option value="">All villages</option>
+      </select>
+    </div>
+
+    <div class="filter-group">
+      <label for="taluka">Taluka</label>
+      <select id="taluka">
+        <option value="">All talukas</option>
+      </select>
+    </div>
+
+    <div class="filter-group">
+      <label for="business">Business Type</label>
+      <select id="business">
+        <option value="">All business</option>
+      </select>
+    </div>
+
+    <div class="filter-group">
+      <label for="blood">Blood Group</label>
+      <select id="blood">
+        <option value="">All groups</option>
+      </select>
+    </div>
+  </section>
+
+  <div class="filters-reset">
+    <button id="resetBtn">બધા filter reset કરો</button>
+  </div>
+
+  <section class="stats">
+    <div>કુલ રેકોર્ડ: <strong id="totalCount">0</strong></div>
+    <div>હાલ બતાવેલા: <strong id="visibleCount">0</strong></div>
+  </section>
+
+  <section>
+    <div id="cards" class="cards"></div>
+    <div id="noResults" class="no-results" style="display:none;">
+      કોઈ રેકોર્ડ મળ્યો નથી. Search / filter થોડું loose રાખીને પ્રયત્ન કરો.
+    </div>
+  </section>
+</main>
+
+<!-- DATA FILE -->
+<script src="data.js"></script>
+
+<script>
+  const cardsEl = document.getElementById("cards");
+  const totalCountEl = document.getElementById("totalCount");
+  const visibleCountEl = document.getElementById("visibleCount");
+  const noResultsEl = document.getElementById("noResults");
+
+  const searchInput = document.getElementById("search");
+  const villageFilter = document.getElementById("village");
+  const talukaFilter = document.getElementById("taluka");
+  const businessFilter = document.getElementById("business");
+  const bloodFilter = document.getElementById("blood");
+  const resetBtn = document.getElementById("resetBtn");
+
+  // main data
+  const data = Array.isArray(directoryData) ? directoryData.slice() : [];
+  data.sort((a, b) => (a.fullName || "").localeCompare(b.fullName || ""));
+  totalCountEl.textContent = data.length.toString();
+
+  // ---------- helpers ----------
+  function uniqueSorted(list, key) {
+    const set = new Set();
+    list.forEach(item => {
+      const val = (item[key] || "").toString().trim();
+      if (val) set.add(val);
+    });
+    return Array.from(set).sort((a,b) => a.localeCompare(b));
+  }
+
+  function fillSelectStatic(selectEl, options, firstLabel) {
+    selectEl.innerHTML = "";
+    const first = document.createElement("option");
+    first.value = "";
+    first.textContent = firstLabel;
+    selectEl.appendChild(first);
+
+    options.forEach(val => {
+      const opt = document.createElement("option");
+      opt.value = val;
+      opt.textContent = val;
+      selectEl.appendChild(opt);
+    });
+  }
+
+  // Taluka, Business, Blood – static based on full data
+  fillSelectStatic(talukaFilter,  uniqueSorted(data, "taluka"),       "All talukas");
+  fillSelectStatic(businessFilter,uniqueSorted(data, "businessType"), "All business");
+  fillSelectStatic(bloodFilter,   uniqueSorted(data, "bloodGroup"),   "All groups");
+
+  // Village – DEPENDENT on selected taluka
+  function updateVillageOptions() {
+    const selectedTaluka = talukaFilter.value.trim();
+
+    let baseList = data;
+    if (selectedTaluka) {
+      baseList = data.filter(item => (item.taluka || "").trim() === selectedTaluka);
+    }
+
+    const villages = uniqueSorted(baseList, "village");
+    const currentVillage = villageFilter.value;
+
+    fillSelectStatic(villageFilter, villages, "All villages");
+
+    // જો હાલનું village હજુ પણ list માં હોય, તો એને જ રાખી શકીએ
+    if (currentVillage && villages.includes(currentVillage)) {
+      villageFilter.value = currentVillage;
+    }
+  }
+
+  // initial village options (when no taluka selected)
+  updateVillageOptions();
+
+  // ---------- card template ----------
+  function createCard(item) {
+    const div = document.createElement("div");
+    div.className = "card";
+
+    const fullName = item.fullName || "";
+    const businessName = item.businessName || "";
+    const businessType = item.businessType || "";
+    const village = item.village || "";
+    const taluka = item.taluka || "";
+    const blood = item.bloodGroup || "";
+    const address = item.address || "";
+    const whatsapp = item.whatsapp || "";
+    const email = item.email || "";
+    const website = item.website || "";
+    const visitingCard = item.visitingCard || "";
+
+    div.innerHTML = `
+      <div class="card-top">
+        <div>
+          <div class="card-name">${fullName}</div>
+          ${businessName ? `<div class="card-business">${businessName}</div>` : ""}
+          ${businessType ? `<div class="card-type">${businessType}</div>` : ""}
+        </div>
+        <div class="chips">
+          ${blood ? `<span class="chip blood">${blood}</span>` : ""}
+          ${village ? `<span class="chip location">${village}</span>` : ""}
+          ${taluka ? `<span class="chip taluka">${taluka}</span>` : ""}
+        </div>
+      </div>
+
+      ${address ? `
+        <div class="row">
+          <span class="row-label">Address:</span>
+          <span class="row-value">${address}</span>
+        </div>
+      ` : ""}
+
+      ${whatsapp ? `
+        <div class="phone-row">📞 ${whatsapp}</div>
+      ` : ""}
+
+      <div class="actions">
+        ${whatsapp ? `
+          <a class="btn btn-whatsapp" href="https://wa.me/91${whatsapp}" target="_blank" rel="noopener">
+            WhatsApp
+          </a>
+        ` : ""}
+
+        ${email ? `
+          <a class="btn" href="mailto:${email}">
+            Email
+          </a>
+        ` : ""}
+
+        ${website ? `
+          <a class="btn" href="${website.startsWith('http') ? website : 'https://' + website}" target="_blank" rel="noopener">
+            Website
+          </a>
+        ` : ""}
+
+        ${visitingCard ? `
+          <a class="btn" href="${visitingCard}" target="_blank" rel="noopener">
+            Visiting Card
+          </a>
+        ` : ""}
+      </div>
+    `;
+    return div;
+  }
+
+  // ---------- filter logic ----------
+  function applyFilters() {
+    const q  = (searchInput.value || "").toLowerCase().trim();
+    const v  = villageFilter.value.trim();
+    const t  = talukaFilter.value.trim();
+    const b  = businessFilter.value.trim();
+    const bl = bloodFilter.value.trim();
+
+    const filtered = data.filter(item => {
+      const name = (item.fullName || "").toLowerCase();
+      const biz  = (item.businessName || "").toLowerCase();
+      const addr = (item.address || "").toLowerCase();
+      const vill = (item.village || "").toLowerCase();
+      const tal  = (item.taluka || "").toLowerCase();
+      const bTyp = (item.businessType || "").toLowerCase();
+
+      let matchesSearch = true;
+      if (q) {
+        matchesSearch =
+          name.includes(q) ||
+          biz.includes(q) ||
+          addr.includes(q) ||
+          vill.includes(q) ||
+          tal.includes(q) ||
+          bTyp.includes(q);
+      }
+
+      const matchesVillage  = !v  || (item.village      || "").trim()      === v;
+      const matchesTaluka   = !t  || (item.taluka       || "").trim()      === t;
+      const matchesBusiness = !b  || (item.businessType || "").trim()      === b;
+      const matchesBlood    = !bl || (item.bloodGroup   || "").trim()      === bl;
+
+      return matchesSearch && matchesVillage && matchesTaluka && matchesBusiness && matchesBlood;
+    });
+
+    cardsEl.innerHTML = "";
+    filtered.forEach(item => cardsEl.appendChild(createCard(item)));
+
+    visibleCountEl.textContent = filtered.length.toString();
+    noResultsEl.style.display = filtered.length === 0 ? "block" : "none";
+  }
+
+  // ---------- events ----------
+  searchInput.addEventListener("input", applyFilters);
+
+  villageFilter.addEventListener("change", applyFilters);
+
+  talukaFilter.addEventListener("change", () => {
+    // pehla villages update, pachi filter apply
+    updateVillageOptions();
+    applyFilters();
+  });
+
+  businessFilter.addEventListener("change", applyFilters);
+  bloodFilter.addEventListener("change", applyFilters);
+
+  resetBtn.addEventListener("click", () => {
+    searchInput.value = "";
+    villageFilter.value = "";
+    talukaFilter.value = "";
+    businessFilter.value = "";
+    bloodFilter.value = "";
+    updateVillageOptions();
+    applyFilters();
+  });
+
+  // initial render
+  applyFilters();
+</script>
+
+</body>
+</html>
